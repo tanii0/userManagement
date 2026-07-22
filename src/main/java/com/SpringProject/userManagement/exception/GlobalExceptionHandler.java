@@ -16,12 +16,19 @@ public class GlobalExceptionHandler {
                 HttpStatus.NOT_FOUND);
 
         }
-        @ExceptionHandler(Exception.class)
-        public ResponseEntity<String> handleGenericException(
-                Exception ex) {
-            return new ResponseEntity<>(
-                    "Something went wrong: " + ex.getMessage(),
-                    HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @ExceptionHandler(AIException.class)
+    public ResponseEntity<String> handleAIException(AIException ex) {
+        return new ResponseEntity<>(
+                "AI Service Error: " + ex.getMessage(),
+                HttpStatus.BAD_GATEWAY);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGenericException(
+            Exception ex) {
+        return new ResponseEntity<>(
+                "Something went wrong: " + ex.getMessage(),
+                HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
 
